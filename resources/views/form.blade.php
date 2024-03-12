@@ -27,7 +27,6 @@
         value="{{ $task->title ?? old('title') }}" />
       @error('title')
         <p class="error-message">{{ $message }}</p>
-        <p class="error">{{ $message }}</p>
       @enderror
     </div>
 
@@ -39,7 +38,6 @@
         rows="5">{{ $task->description ?? old('description') }}</textarea>
       @error('description')
         <p class="error-message">{{ $message }}</p>
-        <p class="error">{{ $message }}</p>
       @enderror
     </div>
 
@@ -51,7 +49,6 @@
         rows="10">{{ $task->long_description ?? old('long_description') }}</textarea>
       @error('long_description')
         <p class="error-message">{{ $message }}</p>
-        <p class="error">{{ $message }}</p>
       @enderror
     </div>
 

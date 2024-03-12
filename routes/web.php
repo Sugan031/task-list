@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\taskListController;
 use App\Http\Requests\taskListRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -16,100 +17,27 @@ use App\Models\taskList;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+    Route::get("/login", function () {
+        return view("user.login");
+    });
 
     Route::get('/', function () {
         return redirect('/tasks');
     }
 );
-    Route::get('/tasks', function (){
-        return view('index', [
-          'tasks'=> taskList::latest()->paginate(10)
-        ]);
-    })->name('task.index');
+    Route::get('/tasks', [taskListController::class,'index'])->name('task.index');
     
     Route::view('/tasks/create','create')->name('task.create');
 
 
-    Route::get('/tasks/{task}/edit',function(taskList $task) {
-        return view('edit', ['task'=> $task]);
-    })->name('task.edit');
+    Route::get('/tasks/{task}/edit',[taskListController::class,'edit'])->name('task.edit');
 
-    Route::get('/tasks/{task}',function(taskList $task) {
-        return view('show', ['task'=> $task]);
-    })->name('task.show');
+    Route::get('/tasks/{task}',[taskListController::class,'show'])->name('task.show');
 
-    Route::post('/tasks',function(taskListRequest $request) {
-    //    $data = $request->validated();
+    Route::post('/tasks',[taskListController::class,'create'])->name('task.store');
 
-    //     $taskList = new TaskList();
-    //     $taskList->title = $data['title'];
-    //     $taskList->description = $data['description'];
-    //     $taskList->long_description = $data['long_description'];
+    Route::put('/tasks/{task}',[taskListController::class,'update'])->name('task.update');
 
-    //     $taskList->save();
+    Route::delete('/tasks/{task}',[taskListController::class,'delete'])->name('task.destroy');
 
-        $taskList = taskList::create($request->validated());
-
-        return redirect()->route('task.show',['task'=>$taskList->id])
-        ->with('success','Task created successfully');
-    })->name('task.store');
-
-    Route::put('/tasks/{task}',function(taskList $task,taskListRequest $request) {
-        // $data = $request->validated();
-
-         $task->update($request->validated());
-        // $taskList->title = $data['title'];
-        // $taskList->description = $data['description'];
-        // $taskList->long_description = $data['long_description'];
-
-        // $taskList->save();
-
-        return redirect()->route('task.show',['task'=>$task->id])
-        ->with('success','Task updated successfully');
-    })->name('task.update');
-
-    Route::delete('/tasks/{task}',function(TaskList $task) {
-        $task->delete();
-
-        return redirect()->route('task.index')
-        ->with('success','Task deleted successfully');
-    })->name('task.destroy');
-
-    Route::put('tasks/{task}/toggle-complete',function(taskList $task){
-       $task->toggleComplete();
-        return redirect()->back();
-    })->name('task.toggle');
-    // Route::get('/xxx', function () {
-    //     return 'Hello';
-    // })->name('hello');
-    // Route::get('/{id}', function ($id) {
-    //     return 'One single task';
-    // })->name('tasks.show');
-    
-    // Route::get('/hallo', function () {
-    //     return redirect()->route('hello');
-    // });
-    // // Route::get('/xxx', function () {
-    // //     return 'Hello';
-    // // })->name('hello');
-    
-    // Route::get('/greet/{name}', function ($name) {
-    //     return 'Hello ' . $name . '!';
-    // });
-    // // Route::get('/hallo', function () {
-    // //     return redirect()->route('hello');
-    // // });
-    
-    // // Route::get('/greet/{name}', function ($name) {
-    // //     return 'Hello ' . $name . '!';
-    // // });
-    
-    // Route::fallback(function () {
-    //     return 'Still got somewhere!';
-    // });
-    
-    // GET
-    // POST 
-    // PUT 
-    // DELETE 
+    Route::put('tasks/{task}/toggle-complete',[taskListController::class,'toggle'])->name('task.toggle');

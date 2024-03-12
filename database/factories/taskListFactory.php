@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\taskList>
  */
@@ -20,7 +21,8 @@ class taskListFactory extends Factory
             'title' => fake()->sentence,
             'description' =>fake()->paragraph,
             'long_description' => fake()->paragraph(7,true),
-            'completed' =>fake()->boolean
+            'completed' =>fake()->boolean,
+            'creator_id' => \App\Models\User::inRandomOrder()->first()->id
         ];
     }
 }

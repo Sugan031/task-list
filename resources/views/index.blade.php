@@ -21,5 +21,5 @@
         {{$tasks->links()}}
         </nav>
     @endif
-
+    
 @endsection

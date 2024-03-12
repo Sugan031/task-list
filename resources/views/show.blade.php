@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-4">
 <a href="{{route('task.index')}}"
-    class="font-medium text-grey-700 underline decoration-pink-500"><- Go back to the task list</a>
+    class="font-medium text-grey-700 underline decoration-pink-500">← Go back to the task list</a>
 </div>
 
 
@@ -15,7 +15,7 @@
     <p class="mb-4 text-slate-700">{{$task->long_description}}</p>
 @endif
 
-<p class="mb-4 text-sm text-slate-500">{{$task->created_at->diffForHumans()}} created | {{$task->updated_at->diffForHumans()}} updated</p>
+<p class="mb-4 text-sm text-slate-500"> created {{$task->created_at->diffForHumans()}} • updated {{$task->updated_at->diffForHumans()}}</p>
 
 <p>
     @if ($task->completed)
@@ -40,7 +40,12 @@
     <form action="{{ route('task.destroy',['task'=>$task]) }}" method="post">
         @csrf
         @method('delete')
-        <button type="submit"  class="btn">DELETE</button>
+        <button type="submit"  class="btn" onclick="return confirm('Are you sure you want to delete this task?')">DELETE</button>
     </form>
 </div>
+<script>
+    // function confirmDelete() {
+    //         return window.confirm('Are you sure you want to delete this task?');
+    //     }
+</script>
 @endsection

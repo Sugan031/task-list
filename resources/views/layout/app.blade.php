@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List Application</title>
+    <link rel="icon" type="image/png" href="{{asset('images/6422262.png')}}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- blade-formatter-disable--}}
     <style type="text/tailwindcss">
@@ -12,15 +14,15 @@
             text-slate-700
         }
         label {
-      @apply block uppercase text-slate-700 mb-2
-    }
-    input, 
-    textarea {
-      @apply shadow-sm appearance-none border w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none
-    }
-    .error {
-      @apply text-red-500 text-sm
-    }
+            @apply block uppercase text-slate-700 mb-2
+        }
+        input,
+        textarea {
+            @apply shadow-sm appearance-none border w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none
+        }
+        .error {
+            @apply text-red-500 text-sm
+        }
   </style>
    {{-- blade-formatter-enable --}}
 
@@ -34,5 +36,6 @@
         @endif
         @yield('content')
     </div>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title',$task->title)
-
+@section('name',$user['name'])
 @section('content')
 <div class="mb-4">
 <a href="{{route('task.index')}}"

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('long_description')->nullable();
             $table->unsignedBigInteger('creator_id');
-            $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('creator_id')->references('id')->on('creators');
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });

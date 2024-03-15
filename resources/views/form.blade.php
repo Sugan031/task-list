@@ -51,6 +51,9 @@
         <p class="error-message">{{ $message }}</p>
       @enderror
     </div>
+    @if(session('user'))
+       <input type="text" name="creator_id" id="creator_id" value="{{ $user['id'] }}" hidden>
+    @endif
 
     <div>
       <button type="submit">

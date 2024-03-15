@@ -22,7 +22,7 @@ class taskListFactory extends Factory
             'description' =>fake()->paragraph,
             'long_description' => fake()->paragraph(7,true),
             'completed' =>fake()->boolean,
-            'creator_id' => \App\Models\User::inRandomOrder()->first()->id
+            'creator_id' => \App\Models\creator::inRandomOrder()->first()->id
         ];
     }
 }

@@ -18,16 +18,13 @@ use App\Models\taskList;
 | be assigned to the "web" middleware group. Make something great!
 |
 // */ 
-Route::get("/login", [userController::class,"index"])->name("user.index")->withoutMiddleware(LoginMiddleware::class);
-Route::get('/', function () {
-        return redirect('/login');
-})->withoutMiddleware(LoginMiddleware::class);
+Route::get("/", [userController::class,"index"])->name("user.index")->middleware('unrestricted');
+Route::get("/register", [userController::class,"registerView"])->name("user.register")->middleware('unrestricted');
+Route::post("/register/create", [userController::class,"register"])->name("user.create")->middleware('unrestricted');
+Route::post('/login/signin', [userController::class,'login'])->name('user.signin')->middleware('unrestricted');
 
-Route::get("/register", [userController::class,"registerView"])->name("user.register")->withoutMiddleware(LoginMiddleware::class);
-Route::post("/register/create", [userController::class,"register"])->name("user.create")->withoutMiddleware(LoginMiddleware::class);
-Route::post('/login/signin', [userController::class,'login'])->name('user.signin')->withoutMiddleware(LoginMiddleware::class);
     
-Route::Middleware('isLogin')->group(function () {
+Route::middleware(['isLogin','unrestricted'])->group(function () {
     Route::get('/tasks', [taskListController::class, 'index'])->name('task.index');
     Route::get('/tasks/filter/{completed}', [taskListController::class, 'filter'])->name('task.filter');
     Route::get('/tasks/create', [taskListController::class, 'createView'])->name('task.create');
